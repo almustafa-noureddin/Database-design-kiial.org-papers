@@ -17,7 +17,7 @@ can also use the following method to insert data as bytes:
 
 `INSERT INTO table(column) VALUES (N'Hassan');`
 
-`INSERT INTO table (column) VALUES(N'حسن');`
+`INSERT INTO table(column) VALUES (N'حسن');`
 
 ## What's included
 
