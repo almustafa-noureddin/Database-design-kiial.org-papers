@@ -15,7 +15,7 @@ class Researcher(models.Model):
     title = models.CharField(max_length=20, blank=True, null=True)
     
     def __str__(self):
-        return f'{self.first_name} {self.second_name} {self.third_name}'
+        return f'{self.alternative_name} {self.first_name} {self.second_name} {self.third_name} {self.fourth_name}'
 
 
 class Degree(models.Model):
@@ -27,25 +27,6 @@ class Degree(models.Model):
     
     def __str__(self):
         return self.degree_type
-
-
-class Paper(models.Model):
-    class Meta:
-        verbose_name_plural = 'Papers'
-        verbose_name = 'Paper'
-    
-    title = models.CharField(max_length=300, blank=True, null=True)
-    researcher = models.ForeignKey(Researcher, on_delete=models.SET_NULL, blank=True, null=True)
-    degree = models.ForeignKey(Degree, on_delete=models.SET_NULL, blank=True, null=True)
-    date_of_publishing = models.IntegerField( blank=True, null=True)
-    paper_number = models.IntegerField( blank=True, null=True)
-    other = models.CharField(max_length=200, blank=True, null=True)
-    
-    
-    
-    def __str__(self):
-        return self.title
-
 
 class Supervisor(models.Model):
     class Meta:
@@ -60,19 +41,40 @@ class Supervisor(models.Model):
     title = models.CharField(max_length=20, blank=True, null=True)
     
     def __str__(self):
-        return f'{self.first_name} {self.second_name} {self.third_name}'
+        return f'{self.first_name} {self.second_name} {self.third_name} {self.fourth_name}'
 
 
-class PaperSupervisor(models.Model):
+class Paper(models.Model):
     class Meta:
-        verbose_name_plural='PaperSupervisors'
-        verbose_name='PaperSupervisor'
+        verbose_name_plural = 'Papers'
+        verbose_name = 'Paper'
     
-    paper=models.ForeignKey(Paper,on_delete=models.SET_NULL,null=True,blank=True)
-    supervisor=models.ForeignKey(Supervisor,on_delete=models.SET_NULL,null=True,blank=True)
+    title = models.CharField(max_length=300, blank=True, null=True)
+    researcher = models.ForeignKey(Researcher, on_delete=models.SET_NULL, blank=True, null=True)
+    supervisor = models.ManyToManyField(Supervisor, blank=True)
+    degree = models.ForeignKey(Degree, on_delete=models.SET_NULL, blank=True, null=True)
+    date_of_publishing = models.IntegerField( blank=True, null=True)
+    paper_number = models.IntegerField( blank=True, null=True)
+    other = models.CharField(max_length=200, blank=True, null=True)
+    
+    
     
     def __str__(self):
-        return f'{self.paper}, {self.supervisor}'
+        return self.title
+
+
+
+
+#class PaperSupervisor(models.Model):
+#    class Meta:
+#        verbose_name_plural='PaperSupervisors'
+#        verbose_name='PaperSupervisor'
+#    
+#    paper=models.ForeignKey(Paper,on_delete=models.SET_NULL,null=True,blank=True)
+#    supervisor=models.ForeignKey(Supervisor,on_delete=models.SET_NULL,null=True,blank=True)
+#    
+#    def __str__(self):
+#        return f'{self.paper}, {self.supervisor}'
 
 
 

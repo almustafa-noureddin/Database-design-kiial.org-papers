@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Researcher,Supervisor,Paper,PaperSupervisor,Degree
+from .models import Researcher,Supervisor,Paper,Degree
 # Register your models here.
 @admin.register(Researcher)
 class ResearcherAdmin(admin.ModelAdmin):
@@ -13,9 +13,7 @@ class SupervisorAdmin(admin.ModelAdmin):
 class PaperAdmin(admin.ModelAdmin):
 	list_display = ('id','title')
 
-@admin.register(PaperSupervisor)
-class PaperSupervisorAdmin(admin.ModelAdmin):
-	list_display = ('id','paper','supervisor')
+
 
 @admin.register(Degree)
 class DegreeAdmin(admin.ModelAdmin):
