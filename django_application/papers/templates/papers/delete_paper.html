@@ -1,0 +1,46 @@
+{% extends 'papers/layout.html' %}
+
+{% block content %}
+<div >
+    <div >
+        <a href="{% url 'papers:papers_list' %}">Go back to index</a>
+    </div>
+    <h1 >Are you sure you want to delete this paper?</h1>
+    <div class="papers-table" dir="rtl">
+        <table>
+            <tr class="heading" >
+                <td class="title" >العنوان</td>
+                <td class="researcher"> الباحث</td>
+                <td class="supervisor"> المشرف</td>
+                <td class="degree">الدرجة العلمية</td>
+                <td class="date">تاريخ النشر</td>
+                <td class="number">رقم الورقة</td>
+                
+            </tr>
+    
+    
+                    <tr class="details">
+                        <td class="title">{{paper.title}}</td>
+                        <td class="researcher">{{paper.researcher}}</td>
+                        <td class="supervisor">
+                        {% for papersupervisor in paper.supervisor.all %}
+                        
+                        {{papersupervisor}} <br>
+                        
+                        {% endfor %}
+                        </td>
+                        <td class="degree">{{paper.degree}}</td>
+                        <td class="date_of_publishing">{{paper.date_of_publishing}}</td>
+                        <td class="number">{{paper.paper_number}}</td>
+                        
+                    </tr>
+                
+                </table>
+            </div>
+    <form method="post" >
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" >Submit</button>
+    </form>
+</div>
+{% endblock content %}

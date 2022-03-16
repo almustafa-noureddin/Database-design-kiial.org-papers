@@ -17,16 +17,11 @@ from django.contrib import admin
 from django.urls import path,include
 from django_filters.views import FilterView
 from papers.filters import PapersFilter
-from papers.views import (
-    IndexView, 
-#    LandingPageView, 
-#    SignupView, 
-#    DashboardView
-)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', IndexView.as_view(), name='index'),
+    path('', include('papers.urls', namespace="papers")),
     url(r'^search/$', FilterView.as_view(filterset_class=PapersFilter,
         template_name='papers/search.html'), name='search'),
 ]

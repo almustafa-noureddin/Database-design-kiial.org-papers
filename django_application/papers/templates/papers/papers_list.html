@@ -11,11 +11,12 @@
             <td class="degree">الدرجة العلمية</td>
             <td class="date">تاريخ النشر</td>
             <td class="number">رقم الورقة</td>
+            <td class="links">#</td>
         </tr>
 {% for paper in papers %}
 
 				<tr class="details">
-					<td class="title">{{paper.title}}</td>
+					<td class="title"><a href="{% url 'papers:paper_detail' paper.pk %}">{{paper.title}}</a></td>
 					<td class="researcher">{{paper.researcher}}</td>
                     <td class="supervisor">
                     {% for papersupervisor in paper.supervisor.all %}
@@ -27,6 +28,13 @@
 					<td class="degree">{{paper.degree}}</td>
 					<td class="date_of_publishing">{{paper.date_of_publishing}}</td>
 					<td class="number">{{paper.paper_number}}</td>
+					<td class="links">
+                        <a href="{% url 'papers:update_paper' paper.pk %}" >تعديل الورقة</a>
+                        <a href="{% url 'papers:update_researcher' paper.researcher.pk %}" >تعديل الباحث</a>
+                        {% for papersupervisor in paper.supervisor.all %}
+                            <a href="{% url 'papers:update_supervisor' papersupervisor.pk %}" >تعديل المشرف</a>
+                        {% endfor %}
+                    </td>
 				</tr>
             {% endfor %}
 
@@ -64,12 +72,12 @@
 </div>
 {% endif %}
 
-                </span>
+                
             </div>
-        
-        
-        
         </table>
-        </div>
+    
+        
+        
+        
         
 {% endblock %}

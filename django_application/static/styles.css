@@ -20,7 +20,13 @@
   vertical-align: top;
 }
 
-.papers-table table tr td:nth-child(2) {
+/*
+===============
+text alignment 
+===============
+*/
+
+.papers-table table tr td {
   text-align: right;
 }
 

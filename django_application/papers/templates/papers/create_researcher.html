@@ -1,0 +1,20 @@
+{% extends 'papers/layout.html' %}
+
+{% block content %}
+
+
+<div >
+    <a  href="{% url 'papers:papers_list' %}">Go back to leads</a>
+    <div >
+        <h1 >Create a new researcher</h1>
+    </div>
+    <form method="post" >
+        {% csrf_token %}
+        {{ form }}
+        <button type='submit' >
+            Submit
+        </button>
+    </form>
+</div>
+
+{% endblock %}
