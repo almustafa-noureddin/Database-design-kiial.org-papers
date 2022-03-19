@@ -54,7 +54,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'papers',
     'widget_tweaks',
-    
+    "django_tables2",
+    'bootstrap3',
 ]
 
 MIDDLEWARE = [

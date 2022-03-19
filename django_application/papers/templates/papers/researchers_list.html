@@ -9,7 +9,7 @@
             <td class="third_name"> الإسم الثالث</td>
             <td class="fourth_name">الإسم الرابع</td>
             <td class="alternative_name">الإسم البديل</td>
-            <td class="title">اللقب</td>
+            <td class="links">#</td>
             
         </tr>
 {% for researcher in researchers %}
@@ -20,7 +20,11 @@
                     <td class="third_name">{{researcher.third_name}}</td>
                     <td class="fourth_name">{{researcher.fourth_name}}</td>
                     <td class="alternative_name">{{researcher.alternative_name}}</td>
-                    <td class="title">{{researcher.title}}</td>
+                    <td class="links">
+                        <a href="{% url 'papers:update_researcher' researcher.pk %}" >تعديل الباحث</a>\
+                        <a href="{% url 'papers:delete_researcher' researcher.pk %}" >إزالة الباحث</a>\
+                        <a href="{% url 'papers:researcher_detail' researcher.pk %}" >تفاصيل الباحث</a>
+                    </td>
                 </tr>
             {% endfor %}
             
@@ -29,27 +33,27 @@
             <div class="paper-navegation" dir="rtl">
             <form method="GET">
                 <select name="paginate_by" class="btn btn-primary">
-                
+                    <option value="none" selected disabled hidden>إختر العدد</option>
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
                     
                 </select>
-                <input type="submit" value="إختر عدد الأوراق لكل صفحة" class="btn btn-primary">
+                <input type="submit" value="إختر عدد الباحثين لكل صفحة" class="btn btn-primary">
             </form>
             <br>
             <br>
                 {% firstof request.GET.paginate_by "10" as paginate_by %}
                 {% if page_obj.has_previous %}
                     <a class="btn btn-outline-info mb-4" href="?page=1&paginate_by={{ paginate_by }}">الأولى</a>
-                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">السابقة</a>
+                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}&paginate_by={{ paginate_by }}">السابقة</a>
                 {% endif %}
                 {% for num in page_obj.paginator.page_range %}
                     {% if page_obj.number == num %}
-                        <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{num}}</a>
+                        <a class="btn btn-outline-info mb-4" href="?page={{ num }}&paginate_by={{ paginate_by }}">{{num}}</a>
                     {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                        <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{num}}</a>
+                        <a class="btn btn-outline-info mb-4" href="?page={{ num }}&paginate_by={{ paginate_by }}">{{num}}</a>
                     {% endif %}
                 {% endfor %}
                 {%if page_obj.has_next %}

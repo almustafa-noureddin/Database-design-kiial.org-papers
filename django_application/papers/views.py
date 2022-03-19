@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
-
+from .tables import PaperTable
 #from .forms import SearchForm
 from .models import (
 	Paper,
@@ -13,6 +13,9 @@ from django.views import generic
 from django.views.generic.edit import ModelFormMixin
 from .filters import PapersFilter
 from .forms import PaperModelForm, ResearcherModelForm, SupervisorModelForm
+from django_tables2 import SingleTableView
+from django_filters.views import FilterView
+from django_tables2.views import SingleTableMixin
 
 #class IndexView(generic.TemplateView):
 #	template_name = "papers/index.html"
@@ -32,17 +35,37 @@ from .forms import PaperModelForm, ResearcherModelForm, SupervisorModelForm
 #		return context
 #
 
+
+class IndexListView(SingleTableMixin, FilterView):
+    table_class = PaperTable
+    model = Paper
+    template_name = "papers/index.html"
+
+    filterset_class = PapersFilter
+
+
+#class IndexListView(SingleTableView):
+#    model = Paper
+#    table_class = PaperTable
+#    template_name = 'papers/index.html'
+
 class PaperListView(generic.ListView):
     template_name = 'papers/papers_list.html'
     context_object_name = 'papers'
     model = Paper
     paginate_by = 5
+    ordering = ['title']
     
     def get_queryset(self):
-        return super().get_queryset().all().order_by('title')
+        order = self.request.GET.get('orderby', 'title')
+        d_or_a = self.request.GET.get('desc_or_asc', '')
+        return super().get_queryset().all().order_by(f'{d_or_a}{order}')
+    
 
     def get_context_data(self, **kwargs):
         context = super(PaperListView, self).get_context_data(**kwargs)
+        context['orderby'] = self.request.GET.get('orderby', 'title')
+        context['desc_or_asc'] = self.request.GET.get('desc_or_asc', '')
         return context
 	
     
@@ -53,7 +76,7 @@ class PaperListView(generic.ListView):
 
 class PaperDetailView(generic.DetailView):
     model = Paper
-    template_name = "papers/paper-detail.html"
+    template_name = "papers/paper_detail.html"
     context_object_name = 'paper'
 
 
@@ -104,6 +127,7 @@ class ResearcherListView(generic.ListView):
     context_object_name = 'researchers'
     model = Researcher
     paginate_by = 10
+    ordering = ['first_name', 'second_name', 'third_name', 'fourth_name', 'alternative_name']
     
     def get_queryset(self):
         return super().get_queryset().all()
@@ -118,7 +142,7 @@ class ResearcherListView(generic.ListView):
 
 class ResearcherDetailView(generic.DetailView):
     model = Researcher
-    template_name = "papers/researcher-detail.html"
+    template_name = "papers/researcher_detail.html"
     context_object_name = 'researcher'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -174,6 +198,7 @@ class SupervisorListView(generic.ListView):
     context_object_name = 'supervisors'
     model = Supervisor
     paginate_by = 10
+    ordering = ['first_name', 'second_name', 'third_name', 'fourth_name', 'alternative_name']
     
     def get_queryset(self):
         return super().get_queryset().all()
@@ -197,6 +222,7 @@ class SupervisorDetailView(generic.DetailView):
         
         context["papers"] = papers
         return context
+
 
 
 class SupervisorCreateView(generic.CreateView):

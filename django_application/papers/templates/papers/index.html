@@ -1,0 +1,24 @@
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load bootstrap3 %}
+<!doctype html>
+<html>
+    <head>
+        <title>List of persons</title>
+        <link href="{% static 'styles.css' %}" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    </head>
+    <body>
+        <div class="papers-table" dir="rtl">
+            
+{% if filter %}
+<form action="" method="get" class="form form-inline">
+    {% bootstrap_form filter.form layout='inline' %}
+    {% bootstrap_button 'filter' %}
+</form>
+{% endif %}
+        {% render_table table %}
+        </div>
+    </body>
+
+</html>

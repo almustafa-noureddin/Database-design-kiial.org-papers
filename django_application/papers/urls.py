@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (
-    
+    IndexListView,
     PaperListView,
     PaperDetailView,
     PaperCreateView,
@@ -21,7 +21,8 @@ from .views import (
 app_name = "papers"
 
 urlpatterns = [
-    path('', PaperListView.as_view(), name='papers_list'),
+    path('', IndexListView.as_view(), name='index'),
+    path('papers/', PaperListView.as_view(), name='papers_list'),
     path('paper/<int:pk>/', PaperDetailView.as_view(), name='paper_detail'),
     path('create/paper/', PaperCreateView.as_view(), name='create_paper'),
     path('update/paper/<int:pk>/', PaperUpdateView.as_view(), name='update_paper'),

@@ -9,6 +9,14 @@
   color: #000;
 }
 
+.papers-table a{
+  color:rgb(71, 5, 124) ;
+  text-decoration: none;
+}
+.papers-table a:hover{
+  color:rgb(71, 5, 124) ;
+  text-decoration: underline;
+}
 .papers-table table {
   width: 100%;
   line-height: inherit;
@@ -30,39 +38,39 @@ text alignment
   text-align: right;
 }
 
-.papers-table table tr.top table td {
-  padding-bottom: 20px;
-}
 
 .papers-table table tr.top table td.title {
   font-size: 45px;
   line-height: 45px;
   color: #000;
+  
 }
 
-.papers-table table tr.information table td {
-  padding-bottom: 40px;
-}
 
 .papers-table table tr.heading td {
   background: rgb(169, 222, 243);
   border-bottom: 1px solid #ddd;
   font-weight: bold;
+  
 }
+/*
+=========================================
+text alignment for django-table2 template
+=========================================
+*/
 
-.papers-table table tr.details td {
-  padding-bottom: 20px;
+.papers-table table thead tr th {
+  text-align: right;
+  background-color: rgb(169, 222, 243);
 }
 
 .papers-table table tr.item td {
   border-bottom: 1px solid #eee;
 }
 
-.papers-table table tr.item.last td {
-  border-bottom: none;
-}
 
-.papers-table table tr.total td:nth-child(2) {
+
+.papers-table table tr.total {
   border-top: 2px solid #eee;
   font-weight: bold;
 }
@@ -74,17 +82,15 @@ text alignment
       text-align: center;
   }
 
-  .papers-table table tr.information table td {
+  .papers-table table table td {
       width: 100%;
       display: block;
-      text-align: center;
   }
 }
 
 /** RTL **/
 .papers-table.rtl {
   direction: rtl;
-  font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
 }
 
 .papers-table.rtl table {

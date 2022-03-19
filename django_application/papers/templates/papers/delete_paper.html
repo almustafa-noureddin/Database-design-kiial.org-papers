@@ -1,12 +1,13 @@
 {% extends 'papers/layout.html' %}
 
 {% block content %}
-<div >
+
     <div >
         <a href="{% url 'papers:papers_list' %}">Go back to index</a>
     </div>
-    <h1 >Are you sure you want to delete this paper?</h1>
+    
     <div class="papers-table" dir="rtl">
+        <h4 >هل تريد إزالة هذه الورقة؟</h4>
         <table>
             <tr class="heading" >
                 <td class="title" >العنوان</td>
@@ -36,11 +37,12 @@
                     </tr>
                 
                 </table>
+                <form method="post" >
+                    {% csrf_token %}
+                    {{ form }}
+                    <button type="submit" >تأكيد</button>
+                </form>
             </div>
-    <form method="post" >
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit" >Submit</button>
-    </form>
-</div>
+    
+
 {% endblock content %}

@@ -16,11 +16,11 @@
 
 				<tr class="details">
 					<td class="title">{{paper.title}}</td>
-					<td class="researcher">{{paper.researcher}}</td>
+					<td class="researcher"><a href="{% url 'papers:researcher_detail' paper.researcher.pk %}">{{paper.researcher}}</a></td>
                     <td class="supervisor">
                     {% for papersupervisor in paper.supervisor.all %}
-                    
-					{{papersupervisor}} <br>
+                    <a href="{% url 'papers:supervisor_detail' papersupervisor.pk %}" >
+					{{papersupervisor}}</a><br>
                     
                     {% endfor %}
                     </td>
@@ -28,11 +28,12 @@
 					<td class="date_of_publishing">{{paper.date_of_publishing}}</td>
 					<td class="number">{{paper.paper_number}}</td>
 					<td class="links">
-                        <a href="{% url 'papers:update_paper' paper.pk %}" >تعديل الورقة</a>
-                        <a href="{% url 'papers:update_researcher' paper.researcher.pk %}" >تعديل الباحث</a>
+                        <a href="{% url 'papers:update_paper' paper.pk %}" >تعديل الورقة</a>\
+                        <a href="{% url 'papers:update_researcher' paper.researcher.pk %}" >تعديل الباحث</a>\
                         {% for papersupervisor in paper.supervisor.all %}
-                            <a href="{% url 'papers:update_supervisor' papersupervisor.pk %}" >تعديل المشرف</a>
+                            <a href="{% url 'papers:update_supervisor' papersupervisor.pk %}" >تعديل المشرف</a>\
                         {% endfor %}
+                        <a href="{% url 'papers:delete_paper' paper.pk %}" >إزالة الورقة</a>
                     </td>
 				</tr>
             

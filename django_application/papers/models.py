@@ -49,14 +49,13 @@ class Paper(models.Model):
         verbose_name_plural = 'Papers'
         verbose_name = 'Paper'
     
-    title = models.CharField(max_length=300, blank=True, null=True)
-    researcher = models.ForeignKey(Researcher, on_delete=models.SET_NULL, blank=True, null=True)
-    supervisor = models.ManyToManyField(Supervisor, blank=True)
-    degree = models.ForeignKey(Degree, on_delete=models.SET_NULL, blank=True, null=True)
-    date_of_publishing = models.IntegerField( blank=True, null=True)
-    paper_number = models.IntegerField( blank=True, null=True)
+    title = models.CharField(max_length=300, blank=True, null=True,verbose_name="العنوان")
+    researcher = models.ForeignKey(Researcher, on_delete=models.SET_NULL, blank=True, null=True,verbose_name="الباحث")
+    supervisor = models.ManyToManyField(Supervisor, blank=True,verbose_name="المشرف")
+    degree = models.ForeignKey(Degree, on_delete=models.SET_NULL, blank=True, null=True,verbose_name="الدرجة العلمية")
+    date_of_publishing = models.IntegerField( blank=True, null=True,verbose_name="تاريخ النشر")
+    paper_number = models.IntegerField( blank=True, null=True,verbose_name="رقم الورقة")
     other = models.CharField(max_length=200, blank=True, null=True)
-    
     
     
     def __str__(self):
