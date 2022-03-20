@@ -1,6 +1,6 @@
 # kiial.org-papers-database-design
 Database design for Khartoum International Institute for Arabic Language (KIIAL)'s research papers &nbsp;
-
+live version : https://kiial-papers.herokuapp.com/
 > Implemented using Postgresql
 
 **ER Diagram**
