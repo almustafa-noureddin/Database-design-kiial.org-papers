@@ -1,13 +1,16 @@
-{% extends 'papers/layout.html' %}
+{% extends 'layout.html' %}
 
 {% block content %}
 <div >
+    <br>
+    <center>
     <div >
-        <a href="{% url 'papers:papers_list' %}">Go back to index</a>
+        <a class="btn btn-outline-info mb-4"  href="{% url 'papers:papers_list' %}">العودة إلى فهرس الأوراق</a>
     </div>
-    
+</center>
     <div class="papers-table" dir="rtl">
         <h4 >هل تريد إزالة هذا المشرف؟</h4>
+        <br>
         <table>
             <tr class="heading" >
                 <td class="first_name" >الإسم الأول</td>
@@ -30,11 +33,14 @@
                     </tr>
                 
                 </table>
+                <br>
+                <div class="form-group col-sm-4 col-md-3">
                 <form method="post" >
                     {% csrf_token %}
                     {{ form }}
-                    <button type="submit" >تأكيد</button>
+                    <button type="submit" class="btn btn-primary" >تأكيد</button>
                 </form>
+            </div>
             </div>
     
     

@@ -56,6 +56,8 @@ INSTALLED_APPS = [
     'widget_tweaks',
     "django_tables2",
     'bootstrap3',
+    "guest_user",
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -149,6 +151,16 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = "media_root"
 STATIC_ROOT = "static_root"
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+AUTH_USER_MODEL = 'papers.User'
+LOGIN_REDIRECT_URL = "/"
+LOGIN_URL = "/login"
+LOGOUT_REDIRECT_URL = "/"
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "guest_user.backends.GuestBackend",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

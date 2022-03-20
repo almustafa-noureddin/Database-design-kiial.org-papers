@@ -5,7 +5,7 @@ from .models import Paper
 class PaperTable(tables.Table):
     class Meta:
         model = Paper
-        template_name = "django_tables2/bootstrap.html"
+        template_name = "django_tables2/bootstrap4.html"
         fields = (
             'title',
             'researcher',

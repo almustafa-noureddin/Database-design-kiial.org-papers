@@ -1,6 +1,13 @@
-{% extends 'papers/layout.html' %}
+{% extends 'layout.html' %}
 
 {% block content %}
+<center>
+    <div class="create_new">
+        <a class="btn btn-outline-primary" href="{% url 'papers:create_paper' %}" >إضافة ورقة جديدة</a>
+        <a class="btn btn-outline-primary" href="{% url 'papers:create_supervisor' %}" >إضافة مشرف جديد</a>
+        <a class="btn btn-outline-primary" href="{% url 'papers:create_researcher' %}" >إضافة باحث جديد</a>
+    </div>
+    </center>
 <div class="papers-table" dir="rtl">
     <table>
         <tr class="heading" >
@@ -32,19 +39,24 @@
             {% if is_paginated %}
             <div class="paper-navegation" dir="rtl">
             <form method="GET">
-                <select name="paginate_by" class="btn btn-primary">
-                    <option value="none" selected disabled hidden>إختر العدد</option>
+                <select name="paginate_by" class="btn btn-outline-info">
+                    <option value="none" selected disabled hidden>إختر عدد الباحثين لكل صفحة</option>
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
                     
                 </select>
-                <input type="submit" value="إختر عدد الباحثين لكل صفحة" class="btn btn-primary">
+                <input type="submit" value="إختر" class="btn btn-primary">
             </form>
             <br>
             <br>
-                {% firstof request.GET.paginate_by "10" as paginate_by %}
+                
+            
+
+            </table>
+            <br>
+            {% firstof request.GET.paginate_by "10" as paginate_by %}
                 {% if page_obj.has_previous %}
                     <a class="btn btn-outline-info mb-4" href="?page=1&paginate_by={{ paginate_by }}">الأولى</a>
                     <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}&paginate_by={{ paginate_by }}">السابقة</a>
@@ -62,8 +74,5 @@
                 {% endif %}
             </div>
             {% endif %}
-            
-
-            </table>
         </div>
         {% endblock content %}

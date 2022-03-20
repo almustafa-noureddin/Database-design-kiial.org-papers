@@ -12,11 +12,13 @@ from django.core.paginator import Paginator
 from django.views import generic
 from django.views.generic.edit import ModelFormMixin
 from .filters import PapersFilter
-from .forms import PaperModelForm, ResearcherModelForm, SupervisorModelForm
+from .forms import PaperModelForm, ResearcherModelForm, SupervisorModelForm, CustomUserCreationForm
 from django_tables2 import SingleTableView
 from django_filters.views import FilterView
 from django_tables2.views import SingleTableMixin
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+#from guest_user.mixins import AllowGuestUserMixin
+from .mixins import OrganisorAndLoginRequiredMixin
 #class IndexView(generic.TemplateView):
 #	template_name = "papers/index.html"
 #
@@ -34,6 +36,13 @@ from django_tables2.views import SingleTableMixin
 #		context["degrees"] = degrees
 #		return context
 #
+
+class SignupView(generic.CreateView):
+    template_name = "registration/signup.html"
+    form_class = CustomUserCreationForm
+
+    def get_success_url(self):
+        return reverse("login")
 
 
 class IndexListView(SingleTableMixin, FilterView):
@@ -80,7 +89,7 @@ class PaperDetailView(generic.DetailView):
     context_object_name = 'paper'
 
 
-class PaperCreateView(generic.CreateView):
+class PaperCreateView(LoginRequiredMixin,generic.CreateView):
     template_name = "papers/create_paper.html"
     form_class = PaperModelForm
 
@@ -93,7 +102,7 @@ class PaperCreateView(generic.CreateView):
         return super(PaperCreateView, self).form_valid(form)
 
 
-class PaperUpdateView(generic.UpdateView):
+class PaperUpdateView(OrganisorAndLoginRequiredMixin,generic.UpdateView):
     template_name = "papers/update_paper.html"
     form_class = PaperModelForm
     def get_queryset(self):
@@ -108,7 +117,7 @@ class PaperUpdateView(generic.UpdateView):
         return super(PaperUpdateView, self).form_valid(form)
 
 
-class PaperDeleteView(generic.DeleteView):
+class PaperDeleteView(OrganisorAndLoginRequiredMixin,generic.DeleteView):
     template_name = "papers/delete_paper.html"
     context_object_name = "paper"
 
@@ -153,7 +162,7 @@ class ResearcherDetailView(generic.DetailView):
         return context
 
 
-class ResearcherCreateView(generic.CreateView):
+class ResearcherCreateView(LoginRequiredMixin,generic.CreateView):
     template_name = "papers/create_researcher.html"
     form_class = ResearcherModelForm
 
@@ -166,7 +175,7 @@ class ResearcherCreateView(generic.CreateView):
         return super(ResearcherCreateView, self).form_valid(form)
 
 
-class ResearcherUpdateView(generic.UpdateView):
+class ResearcherUpdateView(OrganisorAndLoginRequiredMixin,generic.UpdateView):
     template_name = "papers/update_researcher.html"
     form_class = ResearcherModelForm
     def get_queryset(self):
@@ -181,7 +190,7 @@ class ResearcherUpdateView(generic.UpdateView):
         return super(ResearcherUpdateView, self).form_valid(form)
 
 
-class ResearcherDeleteView(generic.DeleteView):
+class ResearcherDeleteView(OrganisorAndLoginRequiredMixin,generic.DeleteView):
     template_name = "papers/delete_researcher.html"
     context_object_name = "researcher"
 
@@ -225,9 +234,9 @@ class SupervisorDetailView(generic.DetailView):
 
 
 
-class SupervisorCreateView(generic.CreateView):
+class SupervisorCreateView(LoginRequiredMixin,generic.CreateView):
     template_name = "papers/create_supervisor.html"
-    context_object_name = "supervisor"
+    form_class = SupervisorModelForm
 
     def get_success_url(self):
         return reverse("papers:index")
@@ -238,7 +247,7 @@ class SupervisorCreateView(generic.CreateView):
         return super(SupervisorCreateView, self).form_valid(form)
 
 
-class SupervisorUpdateView(generic.UpdateView):
+class SupervisorUpdateView(OrganisorAndLoginRequiredMixin,generic.UpdateView):
     template_name = "papers/update_supervisor.html"
     form_class = SupervisorModelForm
     def get_queryset(self):
@@ -253,9 +262,9 @@ class SupervisorUpdateView(generic.UpdateView):
         return super(SupervisorUpdateView, self).form_valid(form)
 
 
-class SupervisorDeleteView(generic.DeleteView):
+class SupervisorDeleteView(OrganisorAndLoginRequiredMixin,generic.DeleteView):
     template_name = "papers/delete_supervisor.html"
-    form_class = SupervisorModelForm
+    context_object_name = "supervisor"
     
     def get_success_url(self):
         return reverse("papers:index")

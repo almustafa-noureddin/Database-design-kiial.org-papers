@@ -1,4 +1,4 @@
-{% extends 'papers/layout.html' %}
+{% extends 'layout.html' %}
 
 {% block content %}
 <div class="papers-table" dir="rtl">
@@ -22,7 +22,7 @@
                     <td class="fourth_name">{{researcher.fourth_name}}</td>
                     
                     <td class="links">
-                        <a href="{% url 'papers:update_researcher' researcher.pk %}" >تعديل الباحث</a>
+                        <a href="{% url 'papers:update_researcher' researcher.pk %}" >تعديل الباحث</a>/
                         <a href="{% url 'papers:delete_researcher' researcher.pk %}" >إزالة الباحث</a>
                     </td>
                 </tr>

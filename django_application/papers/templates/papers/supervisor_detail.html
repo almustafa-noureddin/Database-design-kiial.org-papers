@@ -1,4 +1,4 @@
-{% extends 'papers/layout.html' %}
+{% extends 'layout.html' %}
 
 {% block content %}
 <div class="papers-table" dir="rtl">
@@ -22,7 +22,8 @@
                     <td class="fourth_name">{{supervisor.fourth_name}}</td>
                     
                     <td class="links">
-                        <a href="{% url 'papers:update_supervisor' supervisor.pk %}" >تعديل المشرف</a>
+                        <a href="{% url 'papers:update_supervisor' supervisor.pk %}" >تعديل المشرف</a>/
+                        <a href="{% url 'papers:delete_supervisor' supervisor.pk %}" >إزالة المشرف</a>
                     </td>
                 </tr>
             
@@ -57,7 +58,7 @@
                             <td class="date_of_publishing">{{paper.date_of_publishing}}</td>
                             <td class="number">{{paper.paper_number}}</td>
                             <td class="links">
-                                <a href="{% url 'papers:update_paper' paper.pk %}" >تعديل الورقة</a>
+                                <a href="{% url 'papers:update_paper' paper.pk %}" >تعديل الورقة</a>/
                                 <a href="{% url 'papers:update_researcher' paper.researcher.pk %}" >تعديل الباحث</a>
                                 
                         </tr>

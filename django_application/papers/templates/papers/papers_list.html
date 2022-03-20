@@ -1,8 +1,17 @@
 
-{% extends 'papers/layout.html' %}
+{% extends 'layout.html' %}
 
 {% block content %}
+<center>
+<div class="create_new">
+    <a class="btn btn-outline-primary" href="{% url 'papers:create_paper' %}" >إضافة ورقة جديدة</a>
+    <a class="btn btn-outline-primary" href="{% url 'papers:create_supervisor' %}" >إضافة مشرف جديد</a>
+    <a class="btn btn-outline-primary" href="{% url 'papers:create_researcher' %}" >إضافة باحث جديد</a>
+</div>
+</center>
 <div class="papers-table" dir="rtl">
+    
+
     <table>
         <tr class="heading" >
             <td class="title" >العنوان</td>
@@ -43,7 +52,7 @@
 <br>
 <div class="paper-navegation">
     <form method="GET">
-        <select name="paginate_by" class="btn btn-primary">
+        <select name="paginate_by" class="btn btn-outline-info">
             <option value="none" selected disabled hidden>إختر عدد الأوراق لكل صفحة</option>
             <option value="5">5</option>
             <option value="10">10</option>
@@ -51,7 +60,7 @@
             <option value="50">50</option>
             
         </select>
-        <select name="orderby" class="btn btn-primary">
+        <select name="orderby" class="btn btn-outline-info">
             <option value="none" selected disabled hidden>إختر خانة الترتيب</option>
             <option value="title" >العنوان</option>
             <option value="researcher">الباحث</option>
@@ -60,7 +69,7 @@
             <option value="paper_number">رقم الورقة</option>
             
         </select>
-        <select name="desc_or_asc" class="btn btn-primary">
+        <select name="desc_or_asc" class="btn btn-outline-info">
             <option value="none" selected disabled hidden>إختر الترتيب</option>
             <option value="" >ASC</option>
             <option value="-">DESC</option>
@@ -69,7 +78,13 @@
     </form>
 <br>
 <br>
-    {% firstof request.GET.paginate_by "5" as paginate_by %}
+    
+
+                
+            </div>
+        </table>
+        <br>
+        {% firstof request.GET.paginate_by "5" as paginate_by %}
     {% if page_obj.has_previous %}
         <a class="btn btn-outline-info mb-4" href="?page=1&paginate_by={{ paginate_by }}&orderby={{orderby}}&desc_or_asc={{desc_or_asc}}">الأولى</a>
         <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}&paginate_by={{ paginate_by }}&orderby={{orderby}}&desc_or_asc={{desc_or_asc}}">السابقة</a>
@@ -87,11 +102,7 @@
     {% endif %}
 </div>
 {% endif %}
-
-                
-            </div>
-        </table>
-    
+    </div>
         
         
         
